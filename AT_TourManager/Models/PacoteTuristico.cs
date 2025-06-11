@@ -8,5 +8,7 @@
         public DateTime DataInicio { get; set; }
         public int CapacidadeMaxima { get; set; }
         public List<Destino> Destinos { get; set; } = new List<Destino>();
+        public delegate decimal CalculateDelegate(decimal preco);
+
     }
 }
