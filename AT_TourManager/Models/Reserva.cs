@@ -11,10 +11,7 @@
 
         public delegate bool ValidarDataReservadaDelegate(DateTime dataReserva);
 
-        public static bool ValidarDataFutura(DateTime dataServico)
-        {
-            return dataServico > DateTime.Now;
-        }
+
 
     }
 }

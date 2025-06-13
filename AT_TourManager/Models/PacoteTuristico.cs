@@ -13,15 +13,6 @@
 
         public delegate bool VerificarDisponibilidadeDelegate(int capacidadeMaxima, int reservasAtuais);
 
-        public static decimal CalcularPrecoComDesconto(decimal preco)
-        {
-            return preco * 0.9m; 
-        }
-
-        public static bool VerificarDisponibilidade(int capacidadeMaxima, int reservasAtuais)
-        {
-            return reservasAtuais < capacidadeMaxima;
-        }
 
 
 
