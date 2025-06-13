@@ -1,0 +1,10 @@
+﻿namespace AT_TourManager.Models
+{
+    public class PaisDestino
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Sigla { get; set; }
+        public ICollection<Destino> Destinos { get; set; } = new List<Destino>();
+    }
+}

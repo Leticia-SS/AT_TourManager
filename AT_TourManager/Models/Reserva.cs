@@ -8,6 +8,13 @@
         public int PacoteTuristicoId { get; set; }
         public PacoteTuristico PacoteTuristico { get; set; }
         public DateTime DataReserva { get; set; }
-        
+
+        public delegate bool ValidarDataReservadaDelegate(DateTime dataReserva);
+
+        public static bool ValidarDataFutura(DateTime dataServico)
+        {
+            return dataServico > DateTime.Now;
+        }
+
     }
 }

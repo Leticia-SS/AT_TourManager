@@ -6,6 +6,6 @@
         public string Nome { get; set; }
         public string Email { get; set; }
 
-        public List<Reserva> Reservas { get; set; } = new List<Reserva>();
+        public ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
     }
 }
