@@ -23,6 +23,10 @@ namespace AT_TourManager.Data
                 .HasMany(p => p.Destinos)
                 .WithMany();
 
+            modelBuilder.Entity<PacoteTuristico>()
+                .Property(p => p.Preco)
+                .HasPrecision(18, 2);
+
             modelBuilder.Entity<Reserva>()
                 .HasOne(r => r.Cliente)
                 .WithMany(c => c.Reservas)
@@ -32,7 +36,14 @@ namespace AT_TourManager.Data
                 .HasOne(r => r.PacoteTuristico)
                 .WithMany()
                 .HasForeignKey(r => r.PacoteTuristicoId);
+            
+            modelBuilder.Entity<PaisDestino>()
+                .HasMany(p => p.Destinos)
+                .WithOne(d => d.PaisDestino)
+                .HasForeignKey(d => d.PaisDestinoId);
         }
+
+
     }
     
     

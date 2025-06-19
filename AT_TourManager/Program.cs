@@ -1,7 +1,14 @@
+using AT_TourManager.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Conectando meu DB ao meu context
+builder.Services.AddDbContext<TourManagerContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("AzureSQLConnection")));
 
 var app = builder.Build();
 

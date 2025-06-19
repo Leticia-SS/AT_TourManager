@@ -4,7 +4,8 @@
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string Pais { get; set; }
         public string ImagemUrl { get; set; }
+        public int PaisDestinoId { get; set; } 
+        public PaisDestino PaisDestino { get; set; }
     }
 }
