@@ -59,11 +59,7 @@ namespace AT_TourManager.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Pais")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PaisDestinoId")
+                    b.Property<int>("PaisDestinoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -88,6 +84,7 @@ namespace AT_TourManager.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Preco")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Titulo")
@@ -163,9 +160,13 @@ namespace AT_TourManager.Migrations
 
             modelBuilder.Entity("AT_TourManager.Data.Models.Destino", b =>
                 {
-                    b.HasOne("AT_TourManager.Data.Models.PaisDestino", null)
+                    b.HasOne("AT_TourManager.Data.Models.PaisDestino", "PaisDestino")
                         .WithMany("Destinos")
-                        .HasForeignKey("PaisDestinoId");
+                        .HasForeignKey("PaisDestinoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PaisDestino");
                 });
 
             modelBuilder.Entity("AT_TourManager.Data.Models.Reserva", b =>

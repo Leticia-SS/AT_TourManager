@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AT_TourManager.Data;
 using AT_TourManager.Data.Models;
 
-namespace AT_TourManager.Pages.PacoteTuristicoCRUD
+namespace AT_TourManager.Pages.ReservaPage
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,13 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
             _context = context;
         }
 
-        public IList<PacoteTuristico> PacoteTuristico { get;set; } = default!;
+        public IList<Reserva> Reserva { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            PacoteTuristico = await _context.PacotesTuristicos.ToListAsync();
+            Reserva = await _context.Reservas
+                .Include(r => r.Cliente)
+                .Include(r => r.PacoteTuristico).ToListAsync();
         }
     }
 }

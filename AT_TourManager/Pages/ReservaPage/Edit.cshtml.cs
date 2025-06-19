@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AT_TourManager.Data;
 using AT_TourManager.Data.Models;
 
-namespace AT_TourManager.Pages.PacoteTuristicoCRUD
+namespace AT_TourManager.Pages.ReservaPage
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
         }
 
         [BindProperty]
-        public PacoteTuristico PacoteTuristico { get; set; } = default!;
+        public Reserva Reserva { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,14 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
                 return NotFound();
             }
 
-            var pacoteturistico =  await _context.PacotesTuristicos.FirstOrDefaultAsync(m => m.Id == id);
-            if (pacoteturistico == null)
+            var reserva =  await _context.Reservas.FirstOrDefaultAsync(m => m.Id == id);
+            if (reserva == null)
             {
                 return NotFound();
             }
-            PacoteTuristico = pacoteturistico;
+            Reserva = reserva;
+           ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nome");
+           ViewData["PacoteTuristicoId"] = new SelectList(_context.PacotesTuristicos, "Id", "Titulo");
             return Page();
         }
 
@@ -48,7 +50,7 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
                 return Page();
             }
 
-            _context.Attach(PacoteTuristico).State = EntityState.Modified;
+            _context.Attach(Reserva).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +58,7 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PacoteTuristicoExists(PacoteTuristico.Id))
+                if (!ReservaExists(Reserva.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +71,9 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
             return RedirectToPage("./Index");
         }
 
-        private bool PacoteTuristicoExists(int id)
+        private bool ReservaExists(int id)
         {
-            return _context.PacotesTuristicos.Any(e => e.Id == id);
+            return _context.Reservas.Any(e => e.Id == id);
         }
     }
 }

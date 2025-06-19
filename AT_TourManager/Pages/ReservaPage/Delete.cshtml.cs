@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AT_TourManager.Data;
 using AT_TourManager.Data.Models;
 
-namespace AT_TourManager.Pages.PacoteTuristicoCRUD
+namespace AT_TourManager.Pages.ReservaPage
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
         }
 
         [BindProperty]
-        public PacoteTuristico PacoteTuristico { get; set; } = default!;
+        public Reserva Reserva { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,18 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
                 return NotFound();
             }
 
-            var pacoteturistico = await _context.PacotesTuristicos.FirstOrDefaultAsync(m => m.Id == id);
+            var reserva = await _context.Reservas
+                .Include(r => r.Cliente)
+                .Include(r => r.PacoteTuristico)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (pacoteturistico == null)
+            if (reserva == null)
             {
                 return NotFound();
             }
             else
             {
-                PacoteTuristico = pacoteturistico;
+                Reserva = reserva;
             }
             return Page();
         }
@@ -49,11 +52,11 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
                 return NotFound();
             }
 
-            var pacoteturistico = await _context.PacotesTuristicos.FindAsync(id);
-            if (pacoteturistico != null)
+            var reserva = await _context.Reservas.FindAsync(id);
+            if (reserva != null)
             {
-                PacoteTuristico = pacoteturistico;
-                _context.PacotesTuristicos.Remove(PacoteTuristico);
+                Reserva = reserva;
+                _context.Reservas.Remove(Reserva);
                 await _context.SaveChangesAsync();
             }
 

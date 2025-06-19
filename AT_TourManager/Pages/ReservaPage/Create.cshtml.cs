@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AT_TourManager.Data;
 using AT_TourManager.Data.Models;
 
-namespace AT_TourManager.Pages.PacoteTuristicoCRUD
+namespace AT_TourManager.Pages.ReservaPage
 {
     public class CreateModel : PageModel
     {
@@ -21,11 +21,13 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
 
         public IActionResult OnGet()
         {
+        ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nome");
+        ViewData["PacoteTuristicoId"] = new SelectList(_context.PacotesTuristicos, "Id", "Titulo");
             return Page();
         }
 
         [BindProperty]
-        public PacoteTuristico PacoteTuristico { get; set; } = default!;
+        public Reserva Reserva { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -35,7 +37,7 @@ namespace AT_TourManager.Pages.PacoteTuristicoCRUD
                 return Page();
             }
 
-            _context.PacotesTuristicos.Add(PacoteTuristico);
+            _context.Reservas.Add(Reserva);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
