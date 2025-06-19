@@ -1,4 +1,4 @@
-﻿namespace AT_TourManager.Models
+﻿namespace AT_TourManager.Data.Models
 {
     public class Destino
     {

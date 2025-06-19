@@ -1,7 +1,9 @@
-﻿namespace AT_TourManager.Models
+﻿namespace AT_TourManager.Data.Models
 {
     public class Servico
     {
+        public static Func<int, int, decimal> CalcularValorTotal = (diarias, valorDiaria) => diarias * valorDiaria;
+
         public static decimal CalcularPrecoComDesconto(decimal preco)
         {
             return preco * 0.9m;
