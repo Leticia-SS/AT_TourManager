@@ -22,9 +22,18 @@ namespace AT_TourManager.Data.Models
         public DateTime? DeletedAt { get; set; }
         public string? DeletedBy { get; set; }
 
+        public int NumeroDiarias { get; set; } 
+        public decimal ValorTotal { get; set; }
+
         public delegate bool ValidarDataReservadaDelegate(DateTime dataReserva);
 
-
+        public void CalcularValorTotal(Func<int, decimal, decimal> calculadora)
+        {
+            if (PacoteTuristico != null)
+            {
+                ValorTotal = calculadora(NumeroDiarias, PacoteTuristico.Preco);
+            }
+        }
 
     }
 }

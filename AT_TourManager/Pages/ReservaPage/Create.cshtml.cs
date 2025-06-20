@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AT_TourManager.Data;
 using AT_TourManager.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AT_TourManager.Pages.ReservaPage
 {
@@ -32,10 +33,22 @@ namespace AT_TourManager.Pages.ReservaPage
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+            Logger.MultipleLoggers(logToConsole: true, logToFile: true, logToMemory: false);
+
+            var pacote = await _context.PacotesTuristicos.FindAsync(Reserva.PacoteTuristicoId);
+            if (pacote != null)
+            {
+                Reserva.CalcularValorTotal((diarias, precoDiaria) => diarias * precoDiaria);
+                var reservasCount = await _context.Reservas
+                    .CountAsync(r => r.PacoteTuristicoId == Reserva.PacoteTuristicoId && !r.IsDeleted);
+
+                pacote.CapacityReached += (p) =>
+                {
+                    Logger.Mensagem?.Invoke($"ALERTA: Capacidade máxima atingida para o pacote {p.Titulo} (ID: {p.Id})");
+                };
+
+                pacote.VerificarCapacidade(reservasCount + 1);
+            }
 
             _context.Reservas.Add(Reserva);
             await _context.SaveChangesAsync();

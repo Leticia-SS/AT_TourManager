@@ -11,9 +11,22 @@
 
         public delegate decimal CalculateDelegate(decimal preco);
 
+        public event Action<PacoteTuristico> CapacityReached;
+
         public delegate bool VerificarDisponibilidadeDelegate(int capacidadeMaxima, int reservasAtuais);
 
+        protected virtual void OnCapacityReached()
+        {
+            CapacityReached?.Invoke(this);
+        }
 
+        public void VerificarCapacidade(int reservasAtuais)
+        {
+            if (reservasAtuais >= CapacidadeMaxima)
+            {
+                OnCapacityReached();
+            }
+        }
 
 
     }

@@ -1,0 +1,3 @@
+Log Txt: 20/06/2025 15:52:27 = ALERTA: Capacidade máxima atingida para o pacote Muralha da China (ID: 3)
+Log Txt: 20/06/2025 15:52:37 = ALERTA: Capacidade máxima atingida para o pacote Muralha da China (ID: 3)
+Log Txt: 20/06/2025 15:52:52 = ALERTA: Capacidade máxima atingida para o pacote Muralha da China (ID: 3)

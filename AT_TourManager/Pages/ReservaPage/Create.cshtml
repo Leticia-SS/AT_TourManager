@@ -26,6 +26,13 @@
                 <input asp-for="Reserva.DataReserva" class="form-control" />
                 <span asp-validation-for="Reserva.DataReserva" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Reserva.NumeroDiarias" class="control-label"></label>
+                <input asp-for="Reserva.NumeroDiarias" class="form-control" />
+                <span asp-validation-for="Reserva.NumeroDiarias" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

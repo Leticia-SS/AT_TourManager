@@ -26,6 +26,7 @@
 
         public static void MultipleLoggers(bool logToConsole, bool logToFile, bool logToMemory)
         {
+            Mensagem = null; 
             if (logToConsole)
             {
                 Mensagem += LogToConsole;
@@ -39,11 +40,6 @@
                 Mensagem += LogToMemory;
             }
         }
-
-
-
-
-
 
     }
 }
