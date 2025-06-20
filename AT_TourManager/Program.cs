@@ -1,5 +1,6 @@
 using AT_TourManager.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddRazorPages();
 // Conectando meu DB ao meu context
 builder.Services.AddDbContext<TourManagerContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("AzureSQLConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentidadeContext>();
 
 var app = builder.Build();
 
