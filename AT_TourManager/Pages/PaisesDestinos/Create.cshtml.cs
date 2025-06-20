@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AT_TourManager.Data;
 using AT_TourManager.Data.Models;
 
-namespace AT_TourManager.Pages.ReservaPage
+namespace AT_TourManager.Pages.PaisesDestinos
 {
     public class CreateModel : PageModel
     {
@@ -21,23 +21,21 @@ namespace AT_TourManager.Pages.ReservaPage
 
         public IActionResult OnGet()
         {
-        ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nome");
-        ViewData["PacoteTuristicoId"] = new SelectList(_context.PacotesTuristicos, "Id", "Titulo");
             return Page();
         }
 
         [BindProperty]
-        public Reserva Reserva { get; set; } = default!;
+        public PaisDestino PaisDestino { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-            _context.Reservas.Add(Reserva);
+            _context.PaisesDestinos.Add(PaisDestino);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
