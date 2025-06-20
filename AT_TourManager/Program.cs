@@ -19,9 +19,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentidadeContext>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(
-    options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<IdentidadeContext>();
+//builder.Services.AddDefaultIdentity<IdentityUser>(
+//    options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<IdentidadeContext>();
 
 var app = builder.Build();
 
