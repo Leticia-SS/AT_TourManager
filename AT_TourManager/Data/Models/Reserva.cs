@@ -18,6 +18,10 @@ namespace AT_TourManager.Data.Models
         [DataType(DataType.Date)]
         public DateTime DataReserva { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+        public DateTime? DeletedAt { get; set; }
+        public string? DeletedBy { get; set; }
+
         public delegate bool ValidarDataReservadaDelegate(DateTime dataReserva);
 
 

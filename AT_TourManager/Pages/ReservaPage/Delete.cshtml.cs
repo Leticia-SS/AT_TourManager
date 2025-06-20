@@ -55,8 +55,12 @@ namespace AT_TourManager.Pages.ReservaPage
             var reserva = await _context.Reservas.FindAsync(id);
             if (reserva != null)
             {
-                Reserva = reserva;
-                _context.Reservas.Remove(Reserva);
+                reserva.IsDeleted = true;
+                reserva.DeletedAt = DateTime.Now;
+                reserva.DeletedBy = User.Identity?.Name;
+
+
+                //_context.Reservas.Remove(Reserva);
                 await _context.SaveChangesAsync();
             }
 

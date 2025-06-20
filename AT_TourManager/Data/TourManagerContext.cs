@@ -46,6 +46,8 @@ namespace AT_TourManager.Data
                 .HasMany(p => p.Destinos)
                 .WithOne(d => d.PaisDestino)
                 .HasForeignKey(d => d.PaisDestinoId);
+
+            modelBuilder.Entity<Reserva>().HasQueryFilter(r => !r.IsDeleted);
         }
 
 
