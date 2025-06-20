@@ -11,7 +11,17 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<TourManagerContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("AzureSQLConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentidadeContext>();
+builder.Services.AddDbContext<IdentidadeContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("AzureSQLConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(
+    options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<IdentidadeContext>();
+
+builder.Services.AddDefaultIdentity<IdentityUser>(
+    options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<IdentidadeContext>();
 
 var app = builder.Build();
 
