@@ -2,25 +2,25 @@
 @model AT_TourManager.Pages.Destinos.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cidades dos Destinos";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-create">Cadastrar Novo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Destino[0].Nome)
+                Cidade
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Destino[0].ImagemUrl)
+                Imagem
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Destino[0].PaisDestino)
+                País
             </th>
             <th></th>
         </tr>
@@ -32,15 +32,15 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagemUrl)
+                <img src="@item.ImagemUrl" alt="ImagemCidade" style="width: 300px;" />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PaisDestino.Id)
+                @Html.DisplayFor(modelItem => item.PaisDestino.Nome)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-edit">Editar</a>
+                <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-details">Detalhes</a>
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-delete">Deletar</a>
             </td>
         </tr>
 }

@@ -20,3 +20,28 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.btn-delete {
+    background-color: #dc3545; 
+    color: white;
+}
+
+.btn-details {
+    background-color: #336b87;
+    color: white;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: white;
+}
+
+.btn-create {
+    background-color: #76cccf; 
+    color: white;
+}
+
+.btn-back {
+    background-color: #76cccf; 
+    color: white;
+}
