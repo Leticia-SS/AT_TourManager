@@ -145,15 +145,15 @@ namespace AT_TourManager.Migrations
 
             modelBuilder.Entity("DestinoPacoteTuristico", b =>
                 {
-                    b.Property<int>("DestinosId")
+                    b.Property<int>("DestinoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PacotesTuristicosId")
+                    b.Property<int>("PacoteTuristicoId")
                         .HasColumnType("int");
 
-                    b.HasKey("DestinosId", "PacotesTuristicosId");
+                    b.HasKey("DestinoId", "PacoteTuristicoId");
 
-                    b.HasIndex("PacotesTuristicosId");
+                    b.HasIndex("PacoteTuristicoId");
 
                     b.ToTable("DestinoPacoteTuristico", (string)null);
                 });
@@ -192,13 +192,13 @@ namespace AT_TourManager.Migrations
                 {
                     b.HasOne("AT_TourManager.Data.Models.Destino", null)
                         .WithMany()
-                        .HasForeignKey("DestinosId")
+                        .HasForeignKey("DestinoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AT_TourManager.Data.Models.PacoteTuristico", null)
                         .WithMany()
-                        .HasForeignKey("PacotesTuristicosId")
+                        .HasForeignKey("PacoteTuristicoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -107,30 +107,30 @@ namespace AT_TourManager.Migrations
                 name: "DestinoPacoteTuristico",
                 columns: table => new
                 {
-                    DestinosId = table.Column<int>(type: "int", nullable: false),
-                    PacotesTuristicosId = table.Column<int>(type: "int", nullable: false)
+                    DestinoId = table.Column<int>(type: "int", nullable: false),
+                    PacoteTuristicoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DestinoPacoteTuristico", x => new { x.DestinosId, x.PacotesTuristicosId });
+                    table.PrimaryKey("PK_DestinoPacoteTuristico", x => new { x.DestinoId, x.PacoteTuristicoId });
                     table.ForeignKey(
-                        name: "FK_DestinoPacoteTuristico_Destinos_DestinosId",
-                        column: x => x.DestinosId,
+                        name: "FK_DestinoPacoteTuristico_Destinos_DestinoId",
+                        column: x => x.DestinoId,
                         principalTable: "Destinos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DestinoPacoteTuristico_PacotesTuristicos_PacotesTuristicosId",
-                        column: x => x.PacotesTuristicosId,
+                        name: "FK_DestinoPacoteTuristico_PacotesTuristicos_PacoteTuristicoId",
+                        column: x => x.PacoteTuristicoId,
                         principalTable: "PacotesTuristicos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DestinoPacoteTuristico_PacotesTuristicosId",
+                name: "IX_DestinoPacoteTuristico_PacoteTuristicoId",
                 table: "DestinoPacoteTuristico",
-                column: "PacotesTuristicosId");
+                column: "PacoteTuristicoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Destinos_PaisDestinoId",

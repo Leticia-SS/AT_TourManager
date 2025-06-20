@@ -22,7 +22,11 @@ namespace AT_TourManager.Data
             modelBuilder.Entity<PacoteTuristico>()
                 .HasMany(p => p.Destinos)
                 .WithMany(d => d.PacotesTuristicos)
-                .UsingEntity(j => j.ToTable("DestinoPacoteTuristico")); //Tabela que conecta pacote turistico e destinos criada pela Azure
+                .UsingEntity<Dictionary<string, object>>(
+                    "DestinoPacoteTuristico",
+                    j => j.HasOne<Destino>().WithMany().HasForeignKey("DestinoId"),
+                    j => j.HasOne<PacoteTuristico>().WithMany().HasForeignKey("PacoteTuristicoId"),
+                    j => j.ToTable("DestinoPacoteTuristico"));
 
             modelBuilder.Entity<PacoteTuristico>()
                 .Property(p => p.Preco)

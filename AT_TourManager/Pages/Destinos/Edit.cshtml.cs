@@ -23,6 +23,11 @@ namespace AT_TourManager.Pages.Destinos
         [BindProperty]
         public Destino Destino { get; set; } = default!;
 
+        [BindProperty]
+        public List<int> SelectedPacotesIds { get; set; } = new List<int>();
+
+        public MultiSelectList PacotesOptions { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -30,13 +35,28 @@ namespace AT_TourManager.Pages.Destinos
                 return NotFound();
             }
 
-            var destino =  await _context.Destinos.FirstOrDefaultAsync(m => m.Id == id);
+            var destino = await _context.Destinos
+                .Include(d => d.PacotesTuristicos)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (destino == null)
             {
                 return NotFound();
             }
             Destino = destino;
-           ViewData["PaisDestinoId"] = new SelectList(_context.PaisesDestinos, "Id", "Nome");
+
+            var allPacotes = await _context.PacotesTuristicos.ToListAsync();
+
+            var pacotesAssociadosIds = Destino.PacotesTuristicos.Select(p => p.Id).ToList();
+
+            PacotesOptions = new MultiSelectList(
+                allPacotes,
+                nameof(PacoteTuristico.Id),
+                nameof(PacoteTuristico.Titulo),
+                Destino.PacotesTuristicos.Select(p => p.Id).ToList());
+
+            SelectedPacotesIds = pacotesAssociadosIds;
+            ViewData["PaisDestinoId"] = new SelectList(_context.PaisesDestinos, "Id", "Nome", Destino.PaisDestinoId);
             return Page();
         }
 
@@ -49,7 +69,18 @@ namespace AT_TourManager.Pages.Destinos
             //    return Page();
             //}
 
-            _context.Attach(Destino).State = EntityState.Modified;
+            var destinoToUpdate = await _context.Destinos
+                .Include(d => d.PacotesTuristicos)
+                .FirstOrDefaultAsync(d => d.Id == Destino.Id);
+
+            if (destinoToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            _context.Entry(destinoToUpdate).CurrentValues.SetValues(Destino);
+
+            await UpdatePacotesAssociados(destinoToUpdate);
 
             try
             {
@@ -61,10 +92,7 @@ namespace AT_TourManager.Pages.Destinos
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return RedirectToPage("./Index");
@@ -73,6 +101,23 @@ namespace AT_TourManager.Pages.Destinos
         private bool DestinoExists(int id)
         {
             return _context.Destinos.Any(e => e.Id == id);
+        }
+
+        private async Task UpdatePacotesAssociados(Destino destino)
+        {
+            destino.PacotesTuristicos.Clear();
+
+            if (SelectedPacotesIds != null && SelectedPacotesIds.Any())
+            {
+                var pacotesParaAdicionar = await _context.PacotesTuristicos
+                    .Where(p => SelectedPacotesIds.Contains(p.Id))
+                    .ToListAsync();
+
+                foreach (var pacote in pacotesParaAdicionar)
+                {
+                    destino.PacotesTuristicos.Add(pacote);
+                }
+            }
         }
     }
 }

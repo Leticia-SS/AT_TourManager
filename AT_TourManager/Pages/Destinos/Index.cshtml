@@ -32,10 +32,10 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                <img src="@item.ImagemUrl" alt="@item.Nome" style="max-width: 200px; max-height: 200px;" />
+                @Html.DisplayFor(modelItem => item.ImagemUrl)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PaisDestino.Nome)
+                @Html.DisplayFor(modelItem => item.PaisDestino.Id)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

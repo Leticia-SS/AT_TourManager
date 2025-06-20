@@ -29,9 +29,7 @@ namespace AT_TourManager.Pages.Destinos
                 return NotFound();
             }
 
-            var destino = await _context.Destinos
-                .Include(d => d.PaisDestino)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var destino = await _context.Destinos.FirstOrDefaultAsync(m => m.Id == id);
 
             if (destino == null)
             {

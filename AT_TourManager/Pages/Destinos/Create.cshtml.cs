@@ -31,10 +31,10 @@ namespace AT_TourManager.Pages.Destinos
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             _context.Destinos.Add(Destino);
             await _context.SaveChangesAsync();

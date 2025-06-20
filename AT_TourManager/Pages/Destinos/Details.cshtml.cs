@@ -29,8 +29,8 @@ namespace AT_TourManager.Pages.Destinos
             }
 
             var destino = await _context.Destinos
-                .Include(d => d.PaisDestino)
-                .Include(d => d.PacotesTuristicos)
+                .Include(d => d.PaisDestino) 
+                .Include(d => d.PacotesTuristicos) 
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (destino == null)
             {

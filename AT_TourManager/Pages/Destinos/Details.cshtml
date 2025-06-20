@@ -29,26 +29,39 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Destino.PaisDestino.Nome)
         </dd>
-        <dd class="col-sm-10">
-            @if (Model.Destino.PacotesTuristicos.Any())
-            {
-                <ul>
-                    @foreach (var pacote in Model.Destino.PacotesTuristicos)
-                    {
-                        <li>
-                            <a asp-page="/PacotesTuristicos/Details" asp-route-id="@pacote.Id">
-                                @pacote.Titulo
-                            </a>
-                        </li>
-                    }
-                </ul>
-            }
-            else
-            {
-                <span>Nenhum pacote associado</span>
-            }
-        </dd>
     </dl>
+</div>
+<div>
+    <h4>Pacotes Turísticos</h4>
+    <hr />
+    @if (Model.Destino.PacotesTuristicos.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Preço</th>
+                    <th>Data de Início</th>
+                    <th>Capacidade Máxima</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pacote in Model.Destino.PacotesTuristicos)
+                {
+                    <tr>
+                        <td>@pacote.Titulo</td>
+                        <td>@pacote.Preco.ToString("C")</td>
+                        <td>@pacote.DataInicio.ToString("d")</td>
+                        <td>@pacote.CapacidadeMaxima</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Nenhum pacote turístico encontrado para este destino.</p>
+    }
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Destino.Id">Edit</a> |
