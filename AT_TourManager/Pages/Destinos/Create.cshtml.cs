@@ -21,7 +21,7 @@ namespace AT_TourManager.Pages.Destinos
 
         public IActionResult OnGet()
         {
-        ViewData["PaisDestinoId"] = new SelectList(_context.PaisesDestinos, "Id", "Id");
+        ViewData["PaisDestinoId"] = new SelectList(_context.PaisesDestinos, "Id", "Nome");
             return Page();
         }
 

@@ -36,7 +36,7 @@ namespace AT_TourManager.Pages.Destinos
                 return NotFound();
             }
             Destino = destino;
-           ViewData["PaisDestinoId"] = new SelectList(_context.PaisesDestinos, "Id", "Id");
+           ViewData["PaisDestinoId"] = new SelectList(_context.PaisesDestinos, "Id", "Nome");
             return Page();
         }
 
@@ -44,10 +44,10 @@ namespace AT_TourManager.Pages.Destinos
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             _context.Attach(Destino).State = EntityState.Modified;
 

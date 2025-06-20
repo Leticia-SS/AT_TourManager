@@ -7,5 +7,7 @@
         public string ImagemUrl { get; set; }
         public int PaisDestinoId { get; set; } 
         public PaisDestino PaisDestino { get; set; }
+
+        public ICollection<PacoteTuristico> PacotesTuristicos { get; set; } = new List<PacoteTuristico>();
     }
 }

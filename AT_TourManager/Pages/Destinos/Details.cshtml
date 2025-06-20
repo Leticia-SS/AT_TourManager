@@ -27,7 +27,26 @@
             @Html.DisplayNameFor(model => model.Destino.PaisDestino)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Destino.PaisDestino.Id)
+            @Html.DisplayFor(model => model.Destino.PaisDestino.Nome)
+        </dd>
+        <dd class="col-sm-10">
+            @if (Model.Destino.PacotesTuristicos.Any())
+            {
+                <ul>
+                    @foreach (var pacote in Model.Destino.PacotesTuristicos)
+                    {
+                        <li>
+                            <a asp-page="/PacotesTuristicos/Details" asp-route-id="@pacote.Id">
+                                @pacote.Titulo
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>Nenhum pacote associado</span>
+            }
         </dd>
     </dl>
 </div>

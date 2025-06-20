@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AT_TourManager.Migrations
 {
     [DbContext(typeof(TourManagerContext))]
-    [Migration("20250619223447_InitialCreate")]
+    [Migration("20250620024827_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -151,14 +151,14 @@ namespace AT_TourManager.Migrations
                     b.Property<int>("DestinosId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PacoteTuristicoId")
+                    b.Property<int>("PacotesTuristicosId")
                         .HasColumnType("int");
 
-                    b.HasKey("DestinosId", "PacoteTuristicoId");
+                    b.HasKey("DestinosId", "PacotesTuristicosId");
 
-                    b.HasIndex("PacoteTuristicoId");
+                    b.HasIndex("PacotesTuristicosId");
 
-                    b.ToTable("DestinoPacoteTuristico");
+                    b.ToTable("DestinoPacoteTuristico", (string)null);
                 });
 
             modelBuilder.Entity("AT_TourManager.Data.Models.Destino", b =>
@@ -201,7 +201,7 @@ namespace AT_TourManager.Migrations
 
                     b.HasOne("AT_TourManager.Data.Models.PacoteTuristico", null)
                         .WithMany()
-                        .HasForeignKey("PacoteTuristicoId")
+                        .HasForeignKey("PacotesTuristicosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
