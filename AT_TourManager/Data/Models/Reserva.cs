@@ -35,5 +35,14 @@ namespace AT_TourManager.Data.Models
             }
         }
 
+        public void ValidarReserva(TourManagerContext context)
+        {
+            var reservasAtuais = context.Reservas
+                .Count(r => r.PacoteTuristicoId == this.PacoteTuristicoId && !r.IsDeleted);
+
+            var pacote = context.PacotesTuristicos.Find(this.PacoteTuristicoId);
+            pacote.VerificarCapacidade(reservasAtuais + 1);
+        }
+
     }
 }

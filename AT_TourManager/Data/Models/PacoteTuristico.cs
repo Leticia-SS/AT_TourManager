@@ -20,12 +20,14 @@
             CapacityReached?.Invoke(this);
         }
 
-        public void VerificarCapacidade(int reservasAtuais)
+        public bool VerificarCapacidade(int reservasAtuais)
         {
             if (reservasAtuais >= CapacidadeMaxima)
             {
                 OnCapacityReached();
+                return false;
             }
+            return true;
         }
 
 

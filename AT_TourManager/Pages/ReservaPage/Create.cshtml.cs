@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AT_TourManager.Data;
 using AT_TourManager.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AT_TourManager.Pages.ReservaPage
 {
@@ -37,7 +38,25 @@ namespace AT_TourManager.Pages.ReservaPage
             //    return Page();
             //}
 
-            Reserva.PacoteTuristico = await _context.PacotesTuristicos.FindAsync(Reserva.PacoteTuristicoId);
+            var pacote = await _context.PacotesTuristicos.FindAsync(Reserva.PacoteTuristicoId);
+            var reservasCount = await _context.Reservas
+                .CountAsync(r => r.PacoteTuristicoId == Reserva.PacoteTuristicoId && !r.IsDeleted);
+
+            pacote.CapacityReached += (pacoteAlcancado) =>
+            {
+                Console.WriteLine($"ALERTA: Capacidade máxima {pacoteAlcancado.CapacidadeMaxima} atingida para o pacote {pacoteAlcancado.Titulo}!");
+                ModelState.AddModelError(string.Empty, $"Capacidade máxima ({pacoteAlcancado.CapacidadeMaxima}) atingida para este pacote turístico!");
+            };
+
+            if (!pacote.VerificarCapacidade(reservasCount))
+            {
+                ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id");
+                ViewData["PacoteTuristicoId"] = new SelectList(_context.PacotesTuristicos, "Id", "Id");
+                return Page();
+            }
+
+            Reserva.ValidarReserva(_context);
+            Reserva.PacoteTuristico = pacote;
 
             Reserva.CalcularValorTotal((diarias, preco) => diarias * preco);
 
