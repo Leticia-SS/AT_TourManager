@@ -15,19 +15,31 @@
             @Html.DisplayNameFor(model => model.Reserva.Cliente)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reserva.Cliente.Nome)
+            @Html.DisplayFor(model => model.Reserva.Cliente.Id)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reserva.PacoteTuristico)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reserva.PacoteTuristico.Titulo)
+            @Html.DisplayFor(model => model.Reserva.PacoteTuristico.Id)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reserva.DataReserva)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Reserva.DataReserva)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reserva.NumeroDiarias)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reserva.NumeroDiarias)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reserva.ValorTotal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reserva.ValorTotal)
         </dd>
     </dl>
 </div>

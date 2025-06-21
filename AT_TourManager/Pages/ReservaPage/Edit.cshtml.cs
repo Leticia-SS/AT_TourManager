@@ -36,8 +36,8 @@ namespace AT_TourManager.Pages.ReservaPage
                 return NotFound();
             }
             Reserva = reserva;
-           ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nome");
-           ViewData["PacoteTuristicoId"] = new SelectList(_context.PacotesTuristicos, "Id", "Titulo");
+           ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id");
+           ViewData["PacoteTuristicoId"] = new SelectList(_context.PacotesTuristicos, "Id", "Id");
             return Page();
         }
 
@@ -45,10 +45,15 @@ namespace AT_TourManager.Pages.ReservaPage
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+
+            var pacote = await _context.PacotesTuristicos.FindAsync(Reserva.PacoteTuristicoId);
+            Reserva.PacoteTuristico = pacote;
+
+            Reserva.CalcularValorTotal((diarias, preco) => diarias * preco);
 
             _context.Attach(Reserva).State = EntityState.Modified;
 

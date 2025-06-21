@@ -22,6 +22,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Reserva[0].DataReserva)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reserva[0].NumeroDiarias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reserva[0].ValorTotal)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -29,13 +35,19 @@
 @foreach (var item in Model.Reserva) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                @Html.DisplayFor(modelItem => item.Cliente.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PacoteTuristico.Titulo)
+                @Html.DisplayFor(modelItem => item.PacoteTuristico.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataReserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroDiarias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorTotal)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

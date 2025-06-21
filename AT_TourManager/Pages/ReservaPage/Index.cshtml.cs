@@ -24,6 +24,7 @@ namespace AT_TourManager.Pages.ReservaPage
         public async Task OnGetAsync()
         {
             Reserva = await _context.Reservas
+                .Where(r => !r.IsDeleted)
                 .Include(r => r.Cliente)
                 .Include(r => r.PacoteTuristico).ToListAsync();
         }

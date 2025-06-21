@@ -15,19 +15,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Reserva.Id" />
             <div class="form-group">
+                <span class="text-danger">*</span>
                 <label asp-for="Reserva.ClienteId" class="control-label"></label>
                 <select asp-for="Reserva.ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
                 <span asp-validation-for="Reserva.ClienteId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <span class="text-danger">*</span>
                 <label asp-for="Reserva.PacoteTuristicoId" class="control-label"></label>
                 <select asp-for="Reserva.PacoteTuristicoId" class="form-control" asp-items="ViewBag.PacoteTuristicoId"></select>
                 <span asp-validation-for="Reserva.PacoteTuristicoId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <span class="text-danger">*</span>
                 <label asp-for="Reserva.DataReserva" class="control-label"></label>
                 <input asp-for="Reserva.DataReserva" class="form-control" />
                 <span asp-validation-for="Reserva.DataReserva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reserva.NumeroDiarias" class="control-label"></label>
+                <input asp-for="Reserva.NumeroDiarias" class="form-control" />
+                <span asp-validation-for="Reserva.NumeroDiarias" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

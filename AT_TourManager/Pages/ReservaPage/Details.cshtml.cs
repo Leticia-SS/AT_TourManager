@@ -28,10 +28,7 @@ namespace AT_TourManager.Pages.ReservaPage
                 return NotFound();
             }
 
-            var reserva = await _context.Reservas
-                .Include(r => r.Cliente)
-                .Include(r => r.PacoteTuristico)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var reserva = await _context.Reservas.FirstOrDefaultAsync(m => m.Id == id);
             if (reserva == null)
             {
                 return NotFound();

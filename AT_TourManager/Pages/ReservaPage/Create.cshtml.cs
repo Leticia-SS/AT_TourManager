@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AT_TourManager.Data;
 using AT_TourManager.Data.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace AT_TourManager.Pages.ReservaPage
 {
@@ -22,8 +21,8 @@ namespace AT_TourManager.Pages.ReservaPage
 
         public IActionResult OnGet()
         {
-        ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nome");
-        ViewData["PacoteTuristicoId"] = new SelectList(_context.PacotesTuristicos, "Id", "Titulo");
+        ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id");
+        ViewData["PacoteTuristicoId"] = new SelectList(_context.PacotesTuristicos, "Id", "Id");
             return Page();
         }
 
@@ -33,22 +32,14 @@ namespace AT_TourManager.Pages.ReservaPage
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            Logger.MultipleLoggers(logToConsole: true, logToFile: true, logToMemory: false);
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
-            var pacote = await _context.PacotesTuristicos.FindAsync(Reserva.PacoteTuristicoId);
-            if (pacote != null)
-            {
-                Reserva.CalcularValorTotal((diarias, precoDiaria) => diarias * precoDiaria);
-                var reservasCount = await _context.Reservas
-                    .CountAsync(r => r.PacoteTuristicoId == Reserva.PacoteTuristicoId && !r.IsDeleted);
+            Reserva.PacoteTuristico = await _context.PacotesTuristicos.FindAsync(Reserva.PacoteTuristicoId);
 
-                pacote.CapacityReached += (p) =>
-                {
-                    Logger.Mensagem?.Invoke($"ALERTA: Capacidade máxima atingida para o pacote {p.Titulo} (ID: {p.Id})");
-                };
-
-                pacote.VerificarCapacidade(reservasCount + 1);
-            }
+            Reserva.CalcularValorTotal((diarias, preco) => diarias * preco);
 
             _context.Reservas.Add(Reserva);
             await _context.SaveChangesAsync();
